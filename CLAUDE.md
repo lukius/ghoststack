@@ -25,6 +25,7 @@ ghoststack/
 │   ├── schemas/           # Pydantic request/response models
 │   └── core/              # Cross-cutting: scheduler, WebSocket manager, dependencies, exceptions
 ├── tests/backend/         # pytest test suite (asyncio_mode=auto)
+├── tools/                 # check-image.sh — asserts on a built image, run by the CI Docker job
 ├── run.py                 # Entry point: `python run.py`
 ├── alembic.ini            # Alembic migrations config
 ├── requirements.txt       # Production Python deps
@@ -74,4 +75,4 @@ Read `specs/` for detailed functional and technical specs before implementing fe
 
 - **bcrypt directly, not via passlib** — `passlib==1.7.4` is incompatible with `bcrypt>=4.x`: passlib's internal wrap-bug detection hashes a 200-byte string, but newer bcrypt rejects passwords over 72 bytes. `requirements.txt` uses `bcrypt==5.0.0` directly. The spec's "bcrypt via passlib" recommendation cannot be followed; the `bcrypt` library directly produces equivalent `$2b$12$...` hashes.
 - **HD wallets use Trezor Blockbook (`btc2.trezor.io`), individual BTC wallets use mempool.space** — Blockbook accepts xpub/ypub/zpub natively and returns balance + per-address breakdown + tx history for the entire wallet in one call, eliminating the rate-limit pressure that broke the per-address mempool.space approach. The spec's original blockchain.info choice does not work for BIP84 zpubs (it derives only legacy P2PKH addresses from an xpub). The User-Agent `GhostStack/1.0` (set in `BaseClient`) is required — generic UAs like `Mozilla/5.0` are blocked by Cloudflare on Blockbook xpub paths.
-
+- **certifi is a runtime dependency with a floor, and the image has no pip** — httpx trusts certifi's bundle rather than the OS store, so a stale certifi leaves the API clients trusting distrusted roots even when the base image is clean, and Python's `ssl` doesn't check revocation. `certifi>=2026.10.19` excludes emSign ECC Root CA - G3 (eMudhra incident); it's deliberately not pinned, so a fresh install gets later root removals. A cached pip layer doesn't re-resolve, though: to force out a future root, raise the floor, which also busts the release workflow's `type=gha` cache. The Dockerfile installs with `--cert` (pip 24.0 keeps honouring its vendored bundle under `--use-feature=truststore`) and then uninstalls pip. `tools/check-image.sh <image>` asserts all of this and that the server boots.

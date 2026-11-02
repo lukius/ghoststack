@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Security
+
+- **Stop trusting the distrusted emSign ECC Root CA - G3** ([eMudhra weak-key incident](https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html)). The API clients trust certifi's bundle, so published images up to and including 2.0.0 accept certificates chaining to this root. `requirements.txt` now requires `certifi>=2026.10.19`, and the image installs its dependencies against the OS CA store and no longer includes pip. Once this is released, pull the new image, or re-run `pip install -r requirements.txt` for a non-Docker install. Images under the old `ghcr.io/lukius/cryptodash` path will not get this fix.
+
 ---
 
 ## [2.0.0] — 2026-08-21
