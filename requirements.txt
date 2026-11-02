@@ -1,12 +1,12 @@
-fastapi==0.115.6
+fastapi==0.162.0
 uvicorn[standard]==0.34.0
 sqlalchemy[asyncio]==2.0.36
 aiosqlite==0.20.0
 alembic==1.14.1
 httpx==0.28.1
 # httpx's runtime trust store. A floor, not a pin, so a fresh install gets the current bundle.
-# 2026.10.19 is the first release without emSign ECC Root CA - G3.
+# The floor excludes emSign ECC Root CA - G3.
 certifi>=2026.10.19
 bcrypt==5.0.0
 pydantic==2.10.4
-python-multipart==0.0.18
+python-multipart==0.0.33

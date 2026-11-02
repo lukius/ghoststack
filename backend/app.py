@@ -115,7 +115,7 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(title="GhostStack", version="2.0.0", lifespan=lifespan)
+    app = FastAPI(title="GhostStack", version="2.0.1", lifespan=lifespan)
 
     # CORS — allow Vite dev server
     app.add_middleware(
