@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Check a built GhostStack image: no pip or pip-vendored CA bundle, no trust in
+# Check a built GhostStack image: no packaging tools or pip-vendored CA bundle, no trust in
 # the distrusted emSign ECC Root CA - G3 (in the OS store or in the store httpx
 # loads at runtime), and the server still boots without pip.
 #
@@ -18,10 +18,12 @@ docker run --rm --network none --entrypoint sh "$image" -c '
     echo "image carries a pip-vendored CA bundle: $bundles" >&2
     exit 1
   fi
-  if python -c "import pip" 2>/dev/null; then
-    echo "pip is still installed in the image" >&2
-    exit 1
-  fi
+  for tool in pip setuptools wheel; do
+    if python -c "import $tool" 2>/dev/null; then
+      echo "$tool is still installed in the image" >&2
+      exit 1
+    fi
+  done
   if ls /etc/ssl/certs | grep -qi "emSign_ECC_Root_CA_-_G3"; then
     echo "system CA store still trusts emSign ECC Root CA - G3" >&2
     exit 1

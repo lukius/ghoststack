@@ -9,9 +9,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+---
+
+## [2.0.1] — 2026-11-02
+
 ### Security
 
-- **Stop trusting the distrusted emSign ECC Root CA - G3** ([eMudhra weak-key incident](https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html)). The API clients trust certifi's bundle, so published images up to and including 2.0.0 accept certificates chaining to this root. `requirements.txt` now requires `certifi>=2026.10.19`, and the image installs its dependencies against the OS CA store and no longer includes pip. Once this is released, pull the new image, or re-run `pip install -r requirements.txt` for a non-Docker install. Images under the old `ghcr.io/lukius/cryptodash` path will not get this fix.
+- **Stop trusting the distrusted emSign ECC Root CA - G3** ([eMudhra weak-key incident](https://thehackernews.com/2026/10/emudhra-to-exit-global-ssltls-business.html)). The API clients trust certifi's bundle, so published images up to and including 2.0.0 accept certificates chaining to this root. `requirements.txt` now requires `certifi>=2026.10.19`, and the image installs its dependencies against the OS CA store. Pull the new image, or re-run `pip install -r requirements.txt` for a non-Docker install. Images under the old `ghcr.io/lukius/cryptodash` path will not get this fix.
+- **Upgraded dependencies with known CVEs:** `fastapi` 0.115.6 → 0.162.0, which takes `starlette` from 0.41.3 to a 1.x release, and `python-multipart` 0.0.18 → 0.0.33. Frontend build dependencies are updated with `npm audit fix`.
+- **Removed `pip`, `setuptools` and `wheel` from the image.** Nothing needs them at runtime. Images built `FROM ghcr.io/lukius/ghoststack` can restore pip with `python -m ensurepip`.
 
 ---
 
@@ -94,7 +100,8 @@ Initial release, under the project's original name, CryptoDash.
 - Backend: 20 pytest test modules covering auth, wallets, dashboard, settings, refresh, history, scheduler, security, repositories, models, database, exception handlers, and all three external API clients
 - Frontend: Vitest component and store tests (WalletTable, AddWalletDialog, TimeRangeSelector, auth store, wallets store)
 
-[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/lukius/ghoststack/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/lukius/ghoststack/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/lukius/ghoststack/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/lukius/ghoststack/releases/tag/v1.0.0
