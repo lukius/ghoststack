@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 
 # --- Frontend build stage ---
-FROM node:20-alpine AS frontend
+# Always native: the output is static files, identical on every architecture,
+# and npm ci under QEMU can crash and then hang the release build.
+FROM --platform=$BUILDPLATFORM node:20-alpine AS frontend
 WORKDIR /build
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci

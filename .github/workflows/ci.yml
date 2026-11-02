@@ -64,3 +64,7 @@ jobs:
           cache-to: type=gha,mode=max
       - name: Check image
         run: tools/check-image.sh ghoststack:ci
+      # No QEMU is set up in this job, so this fails if the frontend stage stops
+      # building natively. Under emulation, npm ci can crash and hang the release.
+      - name: Build frontend stage for arm64 without emulation
+        run: docker buildx build --platform linux/arm64 --target frontend .
