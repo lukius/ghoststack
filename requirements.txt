@@ -6,7 +6,7 @@ alembic==1.14.1
 httpx==0.28.1
 # httpx's runtime trust store. A floor, not a pin, so a fresh install gets the current bundle.
 # The floor excludes emSign ECC Root CA - G3.
-certifi>=2026.10.19
+certifi>=2026.10.23
 bcrypt==5.0.0
 pydantic==2.10.4
 python-multipart==0.0.33
