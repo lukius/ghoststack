@@ -278,12 +278,12 @@ async def test_wallet_cascade_delete_all_children(db_session):
     await db_session.delete(wallet)
     await db_session.flush()
 
-    assert (
-        await db_session.get(Transaction, tx_id) is None
-    ), "Transaction should be deleted when wallet is deleted"
-    assert (
-        await db_session.get(BalanceSnapshot, snap_id) is None
-    ), "BalanceSnapshot should be deleted when wallet is deleted"
+    assert await db_session.get(Transaction, tx_id) is None, (
+        "Transaction should be deleted when wallet is deleted"
+    )
+    assert await db_session.get(BalanceSnapshot, snap_id) is None, (
+        "BalanceSnapshot should be deleted when wallet is deleted"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -676,12 +676,12 @@ async def test_wallet_cascade_delete_derived_addresses(db_session):
     await db_session.delete(wallet)
     await db_session.flush()
 
-    assert (
-        await db_session.get(DerivedAddress, d1_id) is None
-    ), "DerivedAddress d1 should be deleted when wallet is deleted"
-    assert (
-        await db_session.get(DerivedAddress, d2_id) is None
-    ), "DerivedAddress d2 should be deleted when wallet is deleted"
+    assert await db_session.get(DerivedAddress, d1_id) is None, (
+        "DerivedAddress d1 should be deleted when wallet is deleted"
+    )
+    assert await db_session.get(DerivedAddress, d2_id) is None, (
+        "DerivedAddress d2 should be deleted when wallet is deleted"
+    )
 
 
 async def test_wallet_server_default_wallet_type_on_raw_insert(db_session):
@@ -720,6 +720,6 @@ async def test_wallet_server_default_wallet_type_on_raw_insert(db_session):
     )
     row = result.fetchone()
     assert row is not None
-    assert (
-        row[0] == "individual"
-    ), "server_default must set wallet_type='individual' for rows inserted without the column"
+    assert row[0] == "individual", (
+        "server_default must set wallet_type='individual' for rows inserted without the column"
+    )

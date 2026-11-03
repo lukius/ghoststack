@@ -27,9 +27,9 @@ async def test_init_db_creates_tables():
         "price_snapshots",
         "configuration",
     }
-    assert expected_tables.issubset(
-        set(table_names)
-    ), f"Missing tables: {expected_tables - set(table_names)}"
+    assert expected_tables.issubset(set(table_names)), (
+        f"Missing tables: {expected_tables - set(table_names)}"
+    )
 
     await engine.dispose()
 
@@ -70,9 +70,9 @@ async def test_init_db_seeds_default_config():
         )
         row = result.fetchone()
 
-    assert (
-        row is not None
-    ), "Default configuration key 'refresh_interval_minutes' was not seeded"
+    assert row is not None, (
+        "Default configuration key 'refresh_interval_minutes' was not seeded"
+    )
     assert row[0] == "15"
 
     await engine.dispose()

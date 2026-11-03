@@ -914,7 +914,7 @@ async def test_hd_wallet_history_skips_unconfirmed(session_factory, hd_wallet):
     ]
 
     # Sort oldest-first (XpubClient.get_xpub_transactions_all does this)
-    parsed_txs.sort(key=lambda t: (t.timestamp if t.timestamp is not None else 0))
+    parsed_txs.sort(key=lambda t: t.timestamp if t.timestamp is not None else 0)
 
     btc_client, kas_client, coingecko_client, ws_manager, xpub_client = (
         make_mock_clients_hd(xpub_txs=parsed_txs)
