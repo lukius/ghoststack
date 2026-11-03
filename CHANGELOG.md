@@ -11,6 +11,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [2.0.2] — 2026-11-02
+
+### Changed
+
+- **Upgraded runtime dependencies:** `sqlalchemy` 2.1.6, `alembic` 1.20.1, `uvicorn` 0.54.0, `aiosqlite` 0.22.1 and `pydantic` 2.14.1. Databases from 2.0.1 keep working with no migration step.
+- **Upgraded frontend dependencies,** including `chart.js` 4.6.1 and `date-fns` 4.4.0.
+- The image's frontend stage now builds with Node 26 LTS instead of Node 20, which is past end of life. The image contains no Node runtime, so this only affects the build.
+
+### Fixed
+
+- Release builds could hang when `npm ci` crashed under arm64 emulation. The frontend stage now builds natively, because its output is identical on every architecture, and the release job has a 30-minute timeout.
+
+---
+
 ## [2.0.1] — 2026-11-02
 
 ### Security
@@ -100,7 +114,8 @@ Initial release, under the project's original name, CryptoDash.
 - Backend: 20 pytest test modules covering auth, wallets, dashboard, settings, refresh, history, scheduler, security, repositories, models, database, exception handlers, and all three external API clients
 - Frontend: Vitest component and store tests (WalletTable, AddWalletDialog, TimeRangeSelector, auth store, wallets store)
 
-[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.2...HEAD
+[2.0.2]: https://github.com/lukius/ghoststack/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/lukius/ghoststack/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/lukius/ghoststack/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/lukius/ghoststack/compare/v1.0.0...v1.0.1
