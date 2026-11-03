@@ -854,9 +854,9 @@ async def test_hd_wallet_remove_cascades(wallet_client, auth_headers, fresh_engi
             cfg_result = await db.execute(
                 select(Configuration).where(Configuration.key == key)
             )
-            assert (
-                cfg_result.scalar_one_or_none() is None
-            ), f"orphan config row left behind: {key}"
+            assert cfg_result.scalar_one_or_none() is None, (
+                f"orphan config row left behind: {key}"
+            )
 
 
 @pytest.mark.asyncio
@@ -1104,9 +1104,9 @@ async def test_list_transactions_timestamps_are_utc(wallet_client_with_db):
     )
     assert resp.status_code == 200
     tx = resp.json()["transactions"][0]
-    assert tx["timestamp"].endswith(
-        "Z"
-    ), "timestamp must be a UTC ISO string (ends with 'Z')"
+    assert tx["timestamp"].endswith("Z"), (
+        "timestamp must be a UTC ISO string (ends with 'Z')"
+    )
 
 
 @pytest.mark.asyncio

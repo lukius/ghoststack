@@ -388,9 +388,9 @@ async def test_portfolio_history_returns_data_points(
     assert "value" in dp
     # Must be "YYYY-MM-DDTHH:MM:SSZ" — not the double-encoded "+00:00Z" form
     ts = dp["timestamp"]
-    assert ts.endswith("Z") and not ts.endswith(
-        "+00:00Z"
-    ), f"timestamp has invalid format: {ts!r}"
+    assert ts.endswith("Z") and not ts.endswith("+00:00Z"), (
+        f"timestamp has invalid format: {ts!r}"
+    )
     datetime.fromisoformat(ts.replace("Z", "+00:00"))  # must be parseable
 
 
@@ -620,9 +620,9 @@ async def test_wallet_history_native(dashboard_client, auth_headers, seeded_db):
     assert Decimal(data["data_points"][0]["value"]) == Decimal("1.0")
     # Timestamp must be "...Z", not the double-encoded "+00:00Z" form
     ts = data["data_points"][0]["timestamp"]
-    assert ts.endswith("Z") and not ts.endswith(
-        "+00:00Z"
-    ), f"wallet history timestamp has invalid format: {ts!r}"
+    assert ts.endswith("Z") and not ts.endswith("+00:00Z"), (
+        f"wallet history timestamp has invalid format: {ts!r}"
+    )
     datetime.fromisoformat(ts.replace("Z", "+00:00"))  # must be parseable
 
 
@@ -794,9 +794,9 @@ async def test_wallet_history_includes_eod_snapshot_in_7d(
     )
     assert resp.status_code == 200
     data = resp.json()
-    assert (
-        len(data["data_points"]) >= 1
-    ), "End-of-day snapshot (23:59:59) must be included in 7d range"
+    assert len(data["data_points"]) >= 1, (
+        "End-of-day snapshot (23:59:59) must be included in 7d range"
+    )
     assert Decimal(data["data_points"][0]["value"]) == Decimal("1.5")
 
 
@@ -810,9 +810,9 @@ async def test_portfolio_history_includes_eod_snapshot_in_30d(
     )
     assert resp.status_code == 200
     data = resp.json()
-    assert (
-        len(data["data_points"]) >= 1
-    ), "End-of-day snapshot (23:59:59) must be included in 30d portfolio history"
+    assert len(data["data_points"]) >= 1, (
+        "End-of-day snapshot (23:59:59) must be included in 30d portfolio history"
+    )
 
 
 @pytest.mark.asyncio

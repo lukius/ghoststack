@@ -154,9 +154,7 @@ def validate_extended_public_key(key: str) -> str | None:
 
     # 3. Length check (exactly 111 characters per FR-H03)
     if len(key) != 111:
-        return (
-            f"Invalid extended public key. " f"Expected 111 characters, got {len(key)}."
-        )
+        return f"Invalid extended public key. Expected 111 characters, got {len(key)}."
 
     # 4. Base58Check integrity
     try:
