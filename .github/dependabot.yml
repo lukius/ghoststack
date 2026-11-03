@@ -12,6 +12,14 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      # Majors are migrations to schedule, not routine bumps. Dependabot drops
+      # update-types for security updates, so major security fixes still arrive.
+      - dependency-name: '*'
+        update-types: [version-update:semver-major]
+      # certifi is a floor, raised only to force out a bad root. Installs already
+      # resolve to the latest release, so bumping it weekly would change nothing.
+      - dependency-name: certifi
     groups:
       python-minor-and-patch:
         update-types: [minor, patch]
@@ -25,6 +33,11 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      # Majors are migrations to schedule, not routine bumps. Dependabot drops
+      # update-types for security updates, so major security fixes still arrive.
+      - dependency-name: '*'
+        update-types: [version-update:semver-major]
     groups:
       npm-minor-and-patch:
         update-types: [minor, patch]
@@ -39,11 +52,13 @@ updates:
       prefix: chore
       include: scope
     ignore:
+      # Majors are migrations to schedule, not routine bumps. Dependabot drops
+      # update-types for security updates, so major security fixes still arrive.
+      - dependency-name: '*'
+        update-types: [version-update:semver-major]
       # Moving off Python 3.11 is a deliberate project decision, not a routine bump.
       - dependency-name: python
-        update-types:
-          - version-update:semver-major
-          - version-update:semver-minor
+        update-types: [version-update:semver-minor]
 
   - package-ecosystem: github-actions
     directory: /
@@ -54,6 +69,11 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    ignore:
+      # Majors are migrations to schedule, not routine bumps. Dependabot drops
+      # update-types for security updates, so major security fixes still arrive.
+      - dependency-name: '*'
+        update-types: [version-update:semver-major]
     groups:
       actions:
         patterns: ['*']
