@@ -22,6 +22,13 @@ ENV PYTHONUNBUFFERED=1 \
     GHOSTSTACK_HOST=0.0.0.0 \
     GHOSTSTACK_PORT=8000
 
+# Take Debian security fixes now rather than waiting for the base tag to be
+# republished. This only helps if the layer isn't cached: the release workflow
+# rebuilds this stage every time (no-cache-filters: runtime).
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt ./
 # The base image's pip vendors a stale CA bundle that still trusts distrusted
 # roots. Install against the OS store instead, then drop the packaging tools:
