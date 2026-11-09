@@ -11,6 +11,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [2.0.3] — 2026-11-09
+
+### Security
+
+- **Debian security fixes in the image:** `zlib1g` 1:1.3.1-1+deb13u1 (CVE-2026-85091, CVE-2026-76844) and `apt` 3.0.4 (CVE-2026-109518). Images up to and including 2.0.2 carry the vulnerable versions. Pull the new image. Non-Docker installs are not affected.
+- **Release images now take every Debian security update available at build time.** The image runs `apt-get upgrade` and is rebuilt without the layer cache, so fixes no longer wait for the `python:3.11-slim` base image to be republished.
+
+---
+
 ## [2.0.2] — 2026-11-02
 
 ### Changed
@@ -114,7 +123,8 @@ Initial release, under the project's original name, CryptoDash.
 - Backend: 20 pytest test modules covering auth, wallets, dashboard, settings, refresh, history, scheduler, security, repositories, models, database, exception handlers, and all three external API clients
 - Frontend: Vitest component and store tests (WalletTable, AddWalletDialog, TimeRangeSelector, auth store, wallets store)
 
-[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.2...HEAD
+[Unreleased]: https://github.com/lukius/ghoststack/compare/v2.0.3...HEAD
+[2.0.3]: https://github.com/lukius/ghoststack/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/lukius/ghoststack/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/lukius/ghoststack/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/lukius/ghoststack/compare/v1.0.1...v2.0.0
