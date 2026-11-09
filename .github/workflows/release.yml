@@ -56,3 +56,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          # Always rebuild the runtime stage so apt upgrade and pip re-resolve.
+          no-cache-filters: runtime
