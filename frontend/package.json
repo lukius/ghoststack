@@ -16,26 +16,26 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^4.4.0",
     "pinia": "^2.3.1",
-    "vue": "^3.5.32",
+    "vue": "^3.5.45",
     "vue-chartjs": "^5.3.4",
-    "vue-router": "^4.6.4"
+    "vue-router": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
-    "@vitejs/plugin-vue": "^6.0.10",
-    "@vue/test-utils": "^2.5.1",
+    "@vitejs/plugin-vue": "^6.0.11",
+    "@vue/test-utils": "^2.6.0",
     "@vue/tsconfig": "^0.9.1",
     "autoprefixer": "^10.6.2",
     "eslint": "^9.39.4",
     "eslint-plugin-vue": "^9.33.0",
     "happy-dom": "^21.0.4",
-    "postcss": "^8.5.9",
-    "prettier": "^3.9.10",
+    "postcss": "^8.5.33",
+    "prettier": "^3.10.1",
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.58.1",
-    "vite": "^8.0.4",
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8",
     "vitest": "^5.1.0",
-    "vue-tsc": "^3.3.13"
+    "vue-tsc": "^3.3.14"
   }
 }
